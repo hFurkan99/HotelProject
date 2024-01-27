@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace HotelProject.Core.Models
 {
-    public class Room : BaseEntity
+    public class Amenities
     {
-        public string Name { get; set; }
-        public int Price { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
-        public int BedCount { get; set; }
-        public int BathCount { get; set; }
-        public bool Wifi { get; set; }
         public string Description { get; set; }
+        public string Icon { get; set; }
     }
 }
