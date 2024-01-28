@@ -15,7 +15,7 @@ namespace HotelProject.Core.DTOs
         public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
 
-        public static CustomResponseDTO<T> Succes(T data, int statusCode)
+        public static CustomResponseDTO<T> Success(T data, int statusCode)
         {
             return new CustomResponseDTO<T> { Data = data, StatusCode = statusCode };
         }

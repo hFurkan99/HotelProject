@@ -17,6 +17,12 @@ namespace HotelProject.Service.Services
         private readonly IGenericRepository<T> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
+        public Service(IGenericRepository<T> repository, IUnitOfWork unitOfWork)
+        {
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<T> AddAsync(T entity)
         {
             await _repository.AddAsync(entity);
