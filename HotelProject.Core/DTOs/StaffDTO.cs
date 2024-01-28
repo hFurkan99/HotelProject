@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelProject.Core.Models
+namespace HotelProject.Core.DTOs
 {
-    public class Staff : BaseEntity
+    public class StaffDTO : BaseWithoutUpdateDTO
     {
         public string Name { get; set; }
         public string Title { get; set; }

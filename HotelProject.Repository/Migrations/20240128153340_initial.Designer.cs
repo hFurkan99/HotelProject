@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelProject.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240127212220_Initial")]
-    partial class Initial
+    [Migration("20240128153340_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,7 @@ namespace HotelProject.Repository.Migrations
                             Id = 1,
                             BathCount = 1,
                             BedCount = 2,
-                            CreatedDate = new DateTime(2024, 1, 28, 0, 22, 20, 292, DateTimeKind.Local).AddTicks(8805),
+                            CreatedDate = new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4157),
                             Description = "JDFHGasdfjhdsf sdfkjhsd dsafjkhds",
                             Name = "Junior Suit",
                             Price = 300,
@@ -124,7 +124,7 @@ namespace HotelProject.Repository.Migrations
                             Id = 2,
                             BathCount = 1,
                             BedCount = 4,
-                            CreatedDate = new DateTime(2024, 1, 28, 0, 22, 20, 292, DateTimeKind.Local).AddTicks(8814),
+                            CreatedDate = new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4166),
                             Description = "JDFHGasdfjhdsf sdfkjhsd dsafjkhds",
                             Name = "Junior Suit 2",
                             Price = 600,

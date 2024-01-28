@@ -13,11 +13,6 @@ namespace HotelProject.Repository
     {
         private IConfiguration _configuration;
 
-        public AppDbContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration)
             : base(options)
         {
@@ -64,10 +59,10 @@ namespace HotelProject.Repository
                 );
         }
 
-        public DbSet<Amenities> Amenities { get; set; }
-        public DbSet<Critization> Critizations { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<Staff> Staffs { get; set; }
-        public DbSet<Subscribe> Subscribes { get; set; }
+        public virtual DbSet<Amenities> Amenities { get; set; }
+        public virtual DbSet<Critization> Critizations { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<Subscribe> Subscribes { get; set; }
     }
 }

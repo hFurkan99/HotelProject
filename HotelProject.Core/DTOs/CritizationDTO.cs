@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelProject.Core.Models
+namespace HotelProject.Core.DTOs
 {
-    public class Staff : BaseEntity
+    public class CritizationDTO : BaseDTO
     {
         public string Name { get; set; }
         public string Title { get; set; }
-        public string SocialMedia1 { get; set; }
-        public string SocialMedia2 { get; set; }
-        public string SocialMedia3 { get; set; }
+        public string Description { get; set; }
         public string Image { get; set; }
     }
 }
