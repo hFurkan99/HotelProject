@@ -15,7 +15,7 @@ namespace HotelProject.Service.Services
         where T : class
     {
         private readonly IGenericRepository<T> _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        protected readonly IUnitOfWork _unitOfWork;
 
         public Service(IGenericRepository<T> repository, IUnitOfWork unitOfWork)
         {

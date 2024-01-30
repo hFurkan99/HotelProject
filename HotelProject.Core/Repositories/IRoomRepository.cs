@@ -9,6 +9,6 @@ namespace HotelProject.Core.Repositories
 {
     public interface IRoomRepository : IGenericRepository<Room>
     {
-        int RoomCount();
+        Task<int> RoomCountAsync();
     }
 }

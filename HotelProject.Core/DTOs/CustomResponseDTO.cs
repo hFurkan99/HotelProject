@@ -39,37 +39,4 @@ namespace HotelProject.Core.DTOs
             };
         }
     }
-
-    public class CustomNoContentResponseDTO
-    {
-        //public T Data { get; set; }
-
-        [JsonIgnore]
-        public int StatusCode { get; set; }
-        public List<string> Errors { get; set; }
-
-        //public static CustomNoContentResponseDTO Succes(T data, int statusCode)
-        //{
-        //    return new CustomNoContentResponseDTO { Data = data, StatusCode = statusCode };
-        //}
-
-        public static CustomNoContentResponseDTO Success(int statusCode)
-        {
-            return new CustomNoContentResponseDTO { StatusCode = statusCode };
-        }
-
-        public static CustomNoContentResponseDTO Fail(int statusCode, List<string> errors)
-        {
-            return new CustomNoContentResponseDTO { StatusCode = statusCode, Errors = errors };
-        }
-
-        public static CustomNoContentResponseDTO Fail(int statusCode, string error)
-        {
-            return new CustomNoContentResponseDTO
-            {
-                StatusCode = statusCode,
-                Errors = new List<string> { error }
-            };
-        }
-    }
 }

@@ -2,36 +2,45 @@
 using HotelProject.Core.DTOs;
 using HotelProject.Core.Models;
 using HotelProject.Core.Services;
+using HotelProject.Core.UnitOfWorks;
 using HotelProject.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProject.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RoomController : ControllerBase
+    public class RoomController : CustomBaseController
     {
-        private readonly IService<Room> _service;
+        private readonly IRoomService _service;
         private readonly IMapper _mapper;
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RoomController(IService<Room> service, IMapper mapper)
+        public RoomController(IRoomService service, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _service = service;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
-            var rooms = await _service.GetAllAsync();
-            var roomsDto = _mapper.Map<List<RoomDTO>>(rooms.ToList());
-            if (roomsDto.Count > 0)
-            {
-                return Ok(CustomResponseDTO<List<RoomDTO>>.Success(roomsDto, 201));
-            }
-            return NotFound(CustomResponseDTO<List<RoomDTO>>.Fail(404, "mesaj"));
+            return CreateActionResult(await _service.GetRoomList());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoomCount()
+        {
+            return CreateActionResult(await _service.GetRoomCount());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> create(RoomDTO roomDto)
+        {
+            var room = _mapper.Map<Room>(roomDto);
+            await _service.AddAsync(room);
+            await _unitOfWork.CommitAsync();
+            return Ok();
         }
     }
 }
