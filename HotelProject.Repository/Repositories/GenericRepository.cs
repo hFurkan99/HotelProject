@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelProject.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace HotelProject.Repository.Repositories
 {

@@ -41,7 +41,14 @@ namespace HotelProject.API.Controllers
         [ServiceFilter(typeof(NotFoundFilter<Room>))]
         public async Task<IActionResult> GetRoomById(int id)
         {
-            return CreateActionResult(await _service.GetByIdAsync(id));
+            return CreateActionResult(await _service.GetByIdAsync<RoomDTO>(id));
+        }
+
+        [HttpDelete]
+        [ServiceFilter(typeof(NotFoundFilter<Room>))]
+        public async Task<IActionResult> RemoveRoom(int id)
+        {
+            return CreateActionResult(await _service.RemoveAsync<RoomDTO>(id));
         }
     }
 }

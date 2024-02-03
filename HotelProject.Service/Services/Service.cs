@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using AutoMapper;
 using HotelProject.Core.DTOs;
 using HotelProject.Core.DTOs.DataDTOs;
-using HotelProject.Core.Models;
 using HotelProject.Core.Repositories;
 using HotelProject.Core.Services;
 using HotelProject.Core.UnitOfWorks;
-using HotelProject.Repository.Repositories;
 using HotelProject.Service.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,17 +74,21 @@ namespace HotelProject.Service.Services
             return CustomResponseDTO<IEnumerable<TDto>>.Success(itemsDto, 200);
         }
 
-        public async Task<CustomResponseDTO<T>> GetByIdAsync(int id)
+        public async Task<CustomResponseDTO<TDto>> GetByIdAsync<TDto>(int id)
         {
             var item = await _repository.GetByIdAsync(id);
-            return CustomResponseDTO<T>.Success(item, 200);
+            var itemDto = _mapper.Map<TDto>(item);
+            return CustomResponseDTO<TDto>.Success(itemDto, 200);
         }
 
-        public async Task<T> RemoveAsync(T entity)
+        public async Task<CustomResponseDTO<TDto>> RemoveAsync<TDto>(int id)
         {
-            _repository.Remove(entity);
+            var item = await _repository.GetByIdAsync(id);
+            _repository.Remove(item);
             await _unitOfWork.CommitAsync();
-            return entity;
+
+            var itemDto = _mapper.Map<TDto>(item);
+            return CustomResponseDTO<TDto>.Success(itemDto, 200);
         }
 
         public async Task<IEnumerable<T>> RemoveRangeAsync(IEnumerable<T> entities)

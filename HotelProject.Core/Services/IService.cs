@@ -13,14 +13,14 @@ namespace HotelProject.Core.Services
     public interface IService<T>
         where T : class
     {
-        Task<CustomResponseDTO<T>> GetByIdAsync(int id);
+        Task<CustomResponseDTO<TDto>> GetByIdAsync<TDto>(int id);
         Task<CustomResponseDTO<MultipleTypeDto>> GetCount();
         Task<CustomResponseDTO<IEnumerable<TDto>>> GetAllAsync<TDto>();
         Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto entityDto);
+        Task<CustomResponseDTO<TDto>> RemoveAsync<TDto>(int id);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
         Task<T> UpdateAsync(T entity);
-        Task<T> RemoveAsync(T entity);
         Task<IEnumerable<T>> RemoveRangeAsync(IEnumerable<T> entities);
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
     }
