@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HotelProject.API.Filters;
+using HotelProject.API.Middlewares;
 using HotelProject.Core.Repositories;
 using HotelProject.Core.Services;
 using HotelProject.Core.UnitOfWorks;
@@ -12,6 +13,7 @@ using HotelProject.Service.Mapping;
 using HotelProject.Service.Services;
 using HotelProject.Service.Validations;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Dependency Injections
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -53,6 +56,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCustomException();
 app.UseAuthorization();
 
 app.MapControllers();

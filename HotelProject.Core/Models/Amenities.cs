@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelProject.Core.Models
 {
-    public class Amenities
+    public class Amenities : BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Icon { get; set; }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelProject.Core.DTOs
 {
-    public class SubscribeDTO
+    public class SubscribeDTO : BaseDTO
     {
-        public int Id { get; set; }
         public string Mail { get; set; }
     }
 }

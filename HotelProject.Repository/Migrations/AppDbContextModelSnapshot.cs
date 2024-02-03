@@ -52,6 +52,9 @@ namespace HotelProject.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -63,6 +66,9 @@ namespace HotelProject.Repository.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -111,7 +117,7 @@ namespace HotelProject.Repository.Migrations
                             Id = 1,
                             BathCount = 1,
                             BedCount = 2,
-                            CreatedDate = new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4157),
+                            CreatedDate = new DateTime(2024, 2, 3, 20, 37, 53, 734, DateTimeKind.Local).AddTicks(4805),
                             Description = "JDFHGasdfjhdsf sdfkjhsd dsafjkhds",
                             Name = "Junior Suit",
                             Price = 300,
@@ -122,7 +128,7 @@ namespace HotelProject.Repository.Migrations
                             Id = 2,
                             BathCount = 1,
                             BedCount = 4,
-                            CreatedDate = new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4166),
+                            CreatedDate = new DateTime(2024, 2, 3, 20, 37, 53, 734, DateTimeKind.Local).AddTicks(4815),
                             Description = "JDFHGasdfjhdsf sdfkjhsd dsafjkhds",
                             Name = "Junior Suit 2",
                             Price = 600,
@@ -137,6 +143,9 @@ namespace HotelProject.Repository.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -155,6 +164,9 @@ namespace HotelProject.Repository.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

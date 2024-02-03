@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotelProject.Repository.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,7 +33,9 @@ namespace HotelProject.Repository.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,7 +73,9 @@ namespace HotelProject.Repository.Migrations
                     SocialMedia1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SocialMedia2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SocialMedia3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,12 +98,12 @@ namespace HotelProject.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Rooms",
                 columns: new[] { "Id", "BathCount", "BedCount", "CreatedDate", "Description", "Name", "Price", "UpdatedDate", "Wifi" },
-                values: new object[] { 1, 1, 2, new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4157), "JDFHGasdfjhdsf sdfkjhsd dsafjkhds", "Junior Suit", 300, null, true });
+                values: new object[] { 1, 1, 2, new DateTime(2024, 2, 3, 20, 37, 53, 734, DateTimeKind.Local).AddTicks(4805), "JDFHGasdfjhdsf sdfkjhsd dsafjkhds", "Junior Suit", 300, null, true });
 
             migrationBuilder.InsertData(
                 table: "Rooms",
                 columns: new[] { "Id", "BathCount", "BedCount", "CreatedDate", "Description", "Name", "Price", "UpdatedDate", "Wifi" },
-                values: new object[] { 2, 1, 4, new DateTime(2024, 1, 28, 18, 33, 40, 285, DateTimeKind.Local).AddTicks(4166), "JDFHGasdfjhdsf sdfkjhsd dsafjkhds", "Junior Suit 2", 600, null, true });
+                values: new object[] { 2, 1, 4, new DateTime(2024, 2, 3, 20, 37, 53, 734, DateTimeKind.Local).AddTicks(4815), "JDFHGasdfjhdsf sdfkjhsd dsafjkhds", "Junior Suit 2", 600, null, true });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

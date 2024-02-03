@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using HotelProject.Core.DTOs;
+using HotelProject.Core.Models;
 using HotelProject.Core.Repositories;
 using HotelProject.Core.Services;
 using HotelProject.Core.UnitOfWorks;
@@ -47,9 +49,10 @@ namespace HotelProject.Service.Services
             return await _repository.GetAll().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<CustomResponseDTO<T>> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var item = await _repository.GetByIdAsync(id);
+            return CustomResponseDTO<T>.Success(item, 200);
         }
 
         public async Task<T> RemoveAsync(T entity)

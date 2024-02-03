@@ -6,6 +6,7 @@ using HotelProject.Core.UnitOfWorks;
 using HotelProject.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 
 namespace HotelProject.API.Controllers
 {
@@ -35,12 +36,16 @@ namespace HotelProject.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> create(RoomDTO roomDto)
+        public async Task<IActionResult> CreateRoom(RoomDTO roomDto)
         {
-            var room = _mapper.Map<Room>(roomDto);
-            await _service.AddAsync(room);
-            await _unitOfWork.CommitAsync();
-            return Ok();
+            return CreateActionResult(await _service.CreateRoom(roomDto));
+        }
+
+        [HttpGet]
+        [ServiceFilter(typeof(NotFoundFilter<Room>))]
+        public async Task<IActionResult> GetRoomById(int id)
+        {
+            return CreateActionResult(await _service.GetByIdAsync(id));
         }
     }
 }

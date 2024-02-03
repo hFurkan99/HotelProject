@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelProject.Core.Models
 {
-    public class Subscribe
+    public class Subscribe : BaseEntity
     {
-        public int Id { get; set; }
         public string Mail { get; set; }
     }
 }
