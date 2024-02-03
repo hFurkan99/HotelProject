@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using HotelProject.Core.DTOs;
+using HotelProject.Core.DTOs.DataDTOs;
 using HotelProject.Core.Repositories;
 
 namespace HotelProject.Core.Services
@@ -13,9 +14,10 @@ namespace HotelProject.Core.Services
         where T : class
     {
         Task<CustomResponseDTO<T>> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<CustomResponseDTO<MultipleTypeDto>> GetCount();
+        Task<CustomResponseDTO<IEnumerable<TDto>>> GetAllAsync<TDto>();
+        Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto entityDto);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
-        Task<T> AddAsync(T entity);
         Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
         Task<T> UpdateAsync(T entity);
         Task<T> RemoveAsync(T entity);

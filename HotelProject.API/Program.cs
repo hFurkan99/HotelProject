@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HotelProject.API.Filters;
@@ -14,6 +16,7 @@ using HotelProject.Service.Services;
 using HotelProject.Service.Validations;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.API.Filters;
+using NLayer.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,12 +41,14 @@ builder.Services.AddSwaggerGen();
 //Dependency Injections
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
-builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-builder.Services.AddScoped<IRoomService, RoomService>();
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder
+    .Host
+    .ConfigureContainer<ContainerBuilder>(
+        containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule())
+    );
 
 var app = builder.Build();
 

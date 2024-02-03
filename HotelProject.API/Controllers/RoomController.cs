@@ -13,32 +13,28 @@ namespace HotelProject.API.Controllers
     public class RoomController : CustomBaseController
     {
         private readonly IRoomService _service;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public RoomController(IRoomService service, IMapper mapper, IUnitOfWork unitOfWork)
+        public RoomController(IRoomService service)
         {
             _service = service;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
-            return CreateActionResult(await _service.GetRoomList());
+            return CreateActionResult(await _service.GetAllAsync<RoomDTO>());
         }
 
         [HttpGet]
         public async Task<IActionResult> GetRoomCount()
         {
-            return CreateActionResult(await _service.GetRoomCount());
+            return CreateActionResult(await _service.GetCount());
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateRoom(RoomDTO roomDto)
         {
-            return CreateActionResult(await _service.CreateRoom(roomDto));
+            return CreateActionResult(await _service.AddAsync(roomDto));
         }
 
         [HttpGet]

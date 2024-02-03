@@ -6,7 +6,7 @@ namespace HotelProject.API.Filters
 {
     public class ValidateFilterAttribute : ActionFilterAttribute
     {
-        public override void OnResultExecuting(ResultExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {

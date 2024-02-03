@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace HotelProject.Core.Repositories
 {
     public interface IGenericRepository<T>
-        where T : class
     {
         Task<T> GetByIdAsync(int id);
+        Task<int> CountAsync();
         IQueryable<T> GetAll();
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);

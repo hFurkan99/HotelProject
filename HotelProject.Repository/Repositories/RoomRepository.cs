@@ -13,10 +13,5 @@ namespace HotelProject.Repository.Repositories
     {
         public RoomRepository(AppDbContext context)
             : base(context) { }
-
-        public async Task<int> RoomCountAsync()
-        {
-            return await _dbSet.AsNoTracking().CountAsync();
-        }
     }
 }

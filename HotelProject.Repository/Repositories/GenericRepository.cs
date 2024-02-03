@@ -36,6 +36,11 @@ namespace HotelProject.Repository.Repositories
             return await _dbSet.AnyAsync(expression);
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await _dbSet.AsNoTracking().CountAsync();
+        }
+
         public IQueryable<T> GetAll()
         {
             return _dbSet.AsNoTracking().AsQueryable();

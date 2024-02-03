@@ -8,8 +8,5 @@ using HotelProject.Core.Models;
 
 namespace HotelProject.Core.Repositories
 {
-    public interface IRoomRepository : IGenericRepository<Room>
-    {
-        Task<int> RoomCountAsync();
-    }
+    public interface IRoomRepository : IGenericRepository<Room> { }
 }
