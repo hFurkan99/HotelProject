@@ -1,4 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using FluentValidation.AspNetCore;
+using HotelProject.API.Filters;
 using HotelProject.Core.Repositories;
 using HotelProject.Core.Services;
 using HotelProject.Core.UnitOfWorks;
@@ -8,20 +11,29 @@ using HotelProject.Repository.UnitOfWorks;
 using HotelProject.Service.Mapping;
 using HotelProject.Service.Services;
 using HotelProject.Service.Validations;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddControllers(option => option.Filters.Add(new ValidateFilterAttribute()));
+
+//Fluent Validation
 builder
     .Services
-    .AddControllers()
-    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<RoomDtoValidator>());
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblyContaining<RoomDtoValidator>();
+builder
+    .Services
+    .Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Dependency Injections
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
