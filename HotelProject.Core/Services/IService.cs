@@ -16,12 +16,13 @@ namespace HotelProject.Core.Services
         Task<CustomResponseDTO<TDto>> GetByIdAsync<TDto>(int id);
         Task<CustomResponseDTO<int>> GetCount();
         Task<CustomResponseDTO<IEnumerable<TDto>>> GetAllAsync<TDto>();
-        Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto entityDto);
+        Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto itemDto);
         Task<CustomResponseDTO<TDto>> RemoveAsync<TDto>(int id);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
-        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
-        Task<T> UpdateAsync(T entity);
-        Task<IEnumerable<T>> RemoveRangeAsync(IEnumerable<T> entities);
+        Task<CustomResponseDTO<int>> AddRangeAsync<TDto>(IEnumerable<TDto> itemsDto);
+        Task<CustomResponseDTO<TDto>> UpdateAsync<TDto>(TDto itemDto);
+
+        //Task<CustomResponseDTO<int>> RemoveRangeAsync(IEnumerable<int> ids);
         IQueryable<T> Where(Expression<Func<T, bool>> expression);
     }
 }

@@ -24,12 +24,12 @@ namespace HotelProject.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto entityDto)
+        public async Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto itemDto)
         {
-            var item = _mapper.Map<T>(entityDto);
+            var item = _mapper.Map<T>(itemDto);
             await _repository.AddAsync(item);
             await _unitOfWork.CommitAsync();
-            return CustomResponseDTO<TDto>.Success(entityDto, 200, "Entity added successfully.");
+            return CustomResponseDTO<TDto>.Success(itemDto, 200, "Entity added successfully.");
         }
 
         public async Task<CustomResponseDTO<int>> GetCount()
@@ -74,35 +74,45 @@ namespace HotelProject.Service.Services
             var item = await _repository.GetByIdAsync(id);
             _repository.Remove(item);
             await _unitOfWork.CommitAsync();
-
             var itemDto = _mapper.Map<TDto>(item);
             return CustomResponseDTO<TDto>.Success(itemDto, 200, "Entity deleted successfully.");
         }
 
-        public async Task<IEnumerable<T>> RemoveRangeAsync(IEnumerable<T> entities)
+        //public async Task<CustomResponseDTO<int>> RemoveRangeAsync(IEnumerable<int> ids)
+        //{
+        //    var entities = await _repository
+        //        .GetAll()
+        //        .ToListAsync()
+        //        .Where(entity => ids.Contains(entity.Id));
+
+        //    _repository.RemoveRange(entities);
+        //    await _unitOfWork.CommitAsync();
+        //    return entities;
+        //}
+
+        public async Task<CustomResponseDTO<TDto>> UpdateAsync<TDto>(TDto itemDto)
         {
-            _repository.RemoveRange(entities);
+            var item = _mapper.Map<T>(itemDto);
+            _repository.Update(item);
             await _unitOfWork.CommitAsync();
-            return entities;
+            return CustomResponseDTO<TDto>.Success(itemDto, 200, "Entity updated successfully.");
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task<CustomResponseDTO<int>> AddRangeAsync<TDto>(IEnumerable<TDto> itemsDto)
         {
-            _repository.Update(entity);
+            var items = _mapper.Map<List<T>>(itemsDto);
+            await _repository.AddRangeAsync(items);
             await _unitOfWork.CommitAsync();
-            return entity;
+            return CustomResponseDTO<int>.Success(
+                items.Count,
+                200,
+                $"{items.Count} entites added succesfully."
+            );
         }
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)
         {
             return _repository.Where(expression);
-        }
-
-        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
-        {
-            await _repository.AddRangeAsync(entities);
-            await _unitOfWork.CommitAsync();
-            return entities;
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)

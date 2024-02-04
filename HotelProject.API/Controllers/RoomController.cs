@@ -37,6 +37,12 @@ namespace HotelProject.API.Controllers
             return CreateActionResult(await _service.AddAsync(roomDto));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateRooms(IEnumerable<RoomDTO> roomDto)
+        {
+            return CreateActionResult(await _service.AddRangeAsync(roomDto));
+        }
+
         [HttpGet("{id}")]
         [ServiceFilter(typeof(NotFoundFilter<Room>))]
         public async Task<IActionResult> GetRoomById(int id)
@@ -49,6 +55,19 @@ namespace HotelProject.API.Controllers
         public async Task<IActionResult> RemoveRoom(int id)
         {
             return CreateActionResult(await _service.RemoveAsync<RoomDTO>(id));
+        }
+
+        //[HttpDelete]
+        //[ServiceFilter(typeof(NotFoundFilter<Room>))]
+        //public async Task<IActionResult> RemoveRooms(IEnumerable<int> id)
+        //{
+        //    return CreateActionResult(await _service.RemoveRangeAsync(id));
+        //}
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRoom(RoomDTO roomDTO)
+        {
+            return CreateActionResult(await _service.UpdateAsync(roomDTO));
         }
     }
 }
