@@ -14,7 +14,7 @@ namespace HotelProject.Core.Services
         where T : class
     {
         Task<CustomResponseDTO<TDto>> GetByIdAsync<TDto>(int id);
-        Task<CustomResponseDTO<MultipleTypeDto>> GetCount();
+        Task<CustomResponseDTO<int>> GetCount();
         Task<CustomResponseDTO<IEnumerable<TDto>>> GetAllAsync<TDto>();
         Task<CustomResponseDTO<TDto>> AddAsync<TDto>(TDto entityDto);
         Task<CustomResponseDTO<TDto>> RemoveAsync<TDto>(int id);

@@ -37,14 +37,14 @@ namespace HotelProject.API.Controllers
             return CreateActionResult(await _service.AddAsync(roomDto));
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ServiceFilter(typeof(NotFoundFilter<Room>))]
         public async Task<IActionResult> GetRoomById(int id)
         {
             return CreateActionResult(await _service.GetByIdAsync<RoomDTO>(id));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ServiceFilter(typeof(NotFoundFilter<Room>))]
         public async Task<IActionResult> RemoveRoom(int id)
         {

@@ -29,35 +29,19 @@ namespace HotelProject.Service.Services
             var item = _mapper.Map<T>(entityDto);
             await _repository.AddAsync(item);
             await _unitOfWork.CommitAsync();
-            return CustomResponseDTO<TDto>.Success(entityDto, 200);
+            return CustomResponseDTO<TDto>.Success(entityDto, 200, "Entity added successfully.");
         }
 
-        public async Task<CustomResponseDTO<MultipleTypeDto>> GetCount()
+        public async Task<CustomResponseDTO<int>> GetCount()
         {
             var roomCount = await _repository.CountAsync();
             if (roomCount <= 0)
-            {
-                return CustomResponseDTO<MultipleTypeDto>.Success(
-                    new MultipleTypeDto { IntData = roomCount, StringData = "Boş" },
-                    200
+                return CustomResponseDTO<int>.Success(
+                    roomCount,
+                    204,
+                    $"There is no {typeof(T).Name}"
                 );
-            }
-            return CustomResponseDTO<MultipleTypeDto>.Success(
-                new MultipleTypeDto { IntData = roomCount, StringData = "Mevcut" },
-                200
-            );
-        }
-
-        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
-        {
-            await _repository.AddRangeAsync(entities);
-            await _unitOfWork.CommitAsync();
-            return entities;
-        }
-
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _repository.AnyAsync(expression);
+            return CustomResponseDTO<int>.Success(roomCount, 200, "Entities available.");
         }
 
         public async Task<CustomResponseDTO<IEnumerable<TDto>>> GetAllAsync<TDto>()
@@ -71,14 +55,18 @@ namespace HotelProject.Service.Services
 
             var itemsDto = _mapper.Map<List<TDto>>(items);
 
-            return CustomResponseDTO<IEnumerable<TDto>>.Success(itemsDto, 200);
+            return CustomResponseDTO<IEnumerable<TDto>>.Success(
+                itemsDto,
+                200,
+                "All entites listed."
+            );
         }
 
         public async Task<CustomResponseDTO<TDto>> GetByIdAsync<TDto>(int id)
         {
             var item = await _repository.GetByIdAsync(id);
             var itemDto = _mapper.Map<TDto>(item);
-            return CustomResponseDTO<TDto>.Success(itemDto, 200);
+            return CustomResponseDTO<TDto>.Success(itemDto, 200, "Entity fetched successfully.");
         }
 
         public async Task<CustomResponseDTO<TDto>> RemoveAsync<TDto>(int id)
@@ -88,7 +76,7 @@ namespace HotelProject.Service.Services
             await _unitOfWork.CommitAsync();
 
             var itemDto = _mapper.Map<TDto>(item);
-            return CustomResponseDTO<TDto>.Success(itemDto, 200);
+            return CustomResponseDTO<TDto>.Success(itemDto, 200, "Entity deleted successfully.");
         }
 
         public async Task<IEnumerable<T>> RemoveRangeAsync(IEnumerable<T> entities)
@@ -108,6 +96,18 @@ namespace HotelProject.Service.Services
         public IQueryable<T> Where(Expression<Func<T, bool>> expression)
         {
             return _repository.Where(expression);
+        }
+
+        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
+        {
+            await _repository.AddRangeAsync(entities);
+            await _unitOfWork.CommitAsync();
+            return entities;
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
+        {
+            return await _repository.AnyAsync(expression);
         }
     }
 }
